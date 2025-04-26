@@ -3,4 +3,5 @@ venv
 *.pyo
 *.pyd
 __pycache__/
-
+recognition/__pycache__/*
+asl_project/__pycache__/*
