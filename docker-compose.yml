@@ -1,0 +1,11 @@
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/code
+    environment:
+      - DEBUG=0
+      - DJANGO_SETTINGS_MODULE=asl_project.settings
+    restart: unless-stopped

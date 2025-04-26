@@ -17,17 +17,13 @@ RUN apt-get update && apt-get install -y \
 
 # Install Python dependencies
 COPY requirements.txt /code/
-RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # Copy project
 COPY . /code/
 
-# Collect static files
-RUN python manage.py collectstatic --noinput
-
 # Expose port
 EXPOSE 5000
 
-# Run gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "asl_project.wsgi:application"]
+# Run server
+CMD ["python", "manage.py", "runserver", "0.0.0.0:5000"]
