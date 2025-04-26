@@ -1,0 +1,207 @@
+/* Reset and Base Styles */
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Modify input field */
+input[type="text"], input[type="password"] {
+
+    font-size: 20px;  /* Increase text size */
+    padding: 10px;  /* Add padding for better appearance */
+    width: 250px;  /* Adjust width */
+    border: 2px solid #2b3275; /* Add border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #fff; /* White background */
+    color: #000; /* Black text */
+
+}
+
+/* Modify input placeholder */
+input::placeholder {
+    font-size: 18px;
+    color: #999;
+}
+
+
+body {
+    font-family: "Cairo", system-ui;
+    background-color: #2b3275;
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: #ffffff;
+    direction: rtl;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #2b3275;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+header .logo {
+    width: 200px;
+    height: auto;
+}
+
+.btn {
+    display: inline-block;
+    margin: 10px;
+    padding: 15px 30px;
+    background-color: #394087;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn i {
+    margin-left: 8px;
+}
+
+.btn:hover {
+    background-color: #394087;
+    transform: translateY(-2px);
+}
+
+.video-container {
+    position: relative;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.video-container img {
+    max-width: 100%;
+    border: 5px solid #394087;
+    border-radius: 15px;
+}
+
+.current-verse {
+    margin-top: 30px;
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+}
+
+.current-verse.success {
+    color: darkgreen;
+}
+
+.character-sequence {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.character-sequence .character {
+    margin: 5px;
+    padding: 10px 15px;
+    font-size: 28px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.character-sequence .character.correct {
+    background-color: #a8e6a1;
+    border-color: green;
+}
+
+.result p {
+    font-size: 24px;
+    color: #27ae60;
+    margin-top: 20px;
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #27ae60;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 5px;
+    z-index: 1000;
+    opacity: 0.9;
+    animation: fadeInOut 3s ease forwards;
+}
+
+.notification.error {
+    background-color: #e74c3c;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-20px); }
+    10%, 90% { opacity: 0.9; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-20px); }
+}
+
+#loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #394087;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 1.5s linear infinite;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+footer {
+    background-color: #394087;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 20px;
+    }
+    .btn {
+        padding: 10px 20px;
+    }
+    .current-verse {
+        font-size: 24px;
+    }
+    .character-sequence .character {
+        font-size: 20px;
+    }
+    .result p {
+        font-size: 18px;
+    }
+}

@@ -1,0 +1,10 @@
+django
+django-extensions
+torch
+torchvision
+opencv-python
+pillow
+requests
+numpy
+tqdm
+ultralytics

@@ -1,0 +1,60 @@
+{#{% extends 'recognition/base.html' %}#}
+{##}
+{#{% block title %}الرئيسية{% endblock %}#}
+{##}
+{#{% block content %}#}
+{#<div class="container">#}
+{#    <h2>مرحباً {{ request.session.user }}</h2>#}
+{#    <p>استخدم هذه الصفحة للانتقال إلى تسميع السور.</p>#}
+{#    <a href="{% url 'surat_al_fatiha' %}" class="btn"><i class="fas fa-book-open"></i> اذهب إلى سورة الفاتحة</a>#}
+{#    <a href="{% url 'surat_al_kawthar' %}" class="btn"><i class="fas fa-book-open"></i> اذهب إلى سورة الكوثر</a>#}
+{#</div>#}
+{#<div class="container">#}
+{#    <p>استخدم هذه الصفحة للانتقال إلى تسميع السور مع توضيح الاشارات.</p>#}
+{#    <a href="{% url 'surat_al_fatiha_reading' %}" class="btn"><i class="fas fa-book-open"></i> اذهب إلى سورة الفاتحة</a>#}
+{#    <a href="{% url 'surat_al_kawthar' %}" class="btn"><i class="fas fa-book-open"></i> اذهب إلى سورة الكوثر</a>#}
+{#</div>#}
+{##}
+{#{% endblock %}#}
+{% extends 'recognition/base.html' %}
+
+{% block title %}الرئيسية{% endblock %}
+
+{% block content %}
+<div class="container">
+     <hr class="custom-line">
+
+    <h2>مرحباً {{ request.session.user }}</h2>
+    <p>استخدم هذه الصفحة للانتقال إلى تسميع السور.</p>
+
+    <!-- ✅ First button: Redirect to the practice page (without images) -->
+    <a href="{% url 'surat_al_fatiha' %}" class="btn">
+        <i class="fas fa-book-open"></i> اذهب إلى تسميع سورة الفاتحة
+    </a>
+
+    <a href="{% url 'surat_al_kawthar' %}" class="btn">
+        <i class="fas fa-book-open"></i> اذهب إلى سورة الكوثر
+    </a>
+    <a href="{% url 'surat_al_nas' %}" class="btn">
+        <i class="fas fa-book-open">اذهب الى سورة الناس</i>
+    </a>
+    <p>استخدم هذه الصفحة للانتقال إلى تسميع السور مع توضيح الإشارات.</p>
+
+    <!-- ✅ Second button: Redirect to the page with images -->
+    <a href="{% url 'surat_al_fatiha_reading' %}" class="btn">
+        <i class="fas fa-images"></i> اذهب إلى سورة الفاتحة مع الإشارات
+    </a>
+
+    <a href="{% url 'surat_al_kawthar_reading' %}" class="btn">
+        <i class="fas fa-images"></i> اذهب إلى سورة الكوثر
+    </a>
+    
+    <a href="{% url 'surat_al_nas_reading' %}" class="btn">
+        <i class="fas fa-images"></i> اذهب إلى سورة الناس
+    </a>
+        
+    <hr class="custom-line">
+
+</div>
+
+{% endblock %}

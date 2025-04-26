@@ -1,0 +1,14 @@
+{% extends 'recognition/base.html' %}
+{% load static %}
+
+{% block title %}مرحبًا بك{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>مرحبًا بك في إشارات النور</h1>
+    <p>اختر كيفية تسجيل الدخول:</p>
+
+    <a href="{% url 'login' %}" class="btn"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a>
+    <a href="{% url 'register' %}" class="btn"><i class="fas fa-user-plus"></i> إنشاء حساب جديد</a>
+</div>
+{% endblock %}

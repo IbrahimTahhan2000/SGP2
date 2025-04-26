@@ -1,0 +1,340 @@
+/* Reset and Base Styles */
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full page height */
+    flex-direction: column;
+    text-align: center;
+}
+
+/* Center input fields */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type="text"], input[type="password"] {
+    font-size: 24px;
+    padding: 15px;
+    width: 350px; /* Make input fields wider */
+    border: 2px solid #ff66b2;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #333;
+    margin: 10px 0; /* Space between inputs */
+    text-align: center; /* Center text inside the input */
+}
+
+/* Modify input placeholder */
+input::placeholder {
+    font-size: 18px;
+    color: #999;
+}
+
+
+body {
+    font-family: "Cairo", system-ui;
+    background-color: #2b3275;
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: #ffffff;
+    direction: rtl;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #2b3275;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+header .logo {
+    width: 200px;
+    height: auto;
+}
+
+.btn {
+    display: inline-block;
+    margin: 10px;
+    padding: 15px 30px;
+    background-color: #363e88;
+    /*background: linear-gradient(to right, #007bff, #0056b3);  !* Blue gradient *!*/
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn i {
+    margin-left: 8px;
+}
+
+.btn:hover {
+    background-color: #394087;
+    transform: translateY(-2px);
+}
+
+/*.video-container {*/
+/*    position: relative;*/
+/*    margin-top: 20px;*/
+/*    text-align: center;*/
+/*}*/
+
+.custom-line {
+    width: 90%; /* Make it responsive */
+    height: 3px; /* Adjust thickness */
+    background: linear-gradient(to right, #4a90e2, #2b3275); /* Blue gradient */
+    border: none;
+    margin: 20px auto; /* Center it */
+}
+
+/* Flexbox to align video & image side by side */
+
+.side-by-side2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Adjust spacing between video and gesture image */
+}
+
+.video-container,
+.gesture-container2 {
+    width: 50%; /* Ensures equal width */
+    text-align: center;
+    min-height: 300px; /* Set a minimum height to prevent shifting */
+}
+
+.video-frame {
+    width: 100%; /* Adjust width to fit container */
+    height: auto;
+    display: block;
+}
+
+#loader {
+    display: block;
+    font-size: 18px;
+    color: gray;
+}
+
+/* Ensure the gesture image doesn't overflow */
+.gesture-container2 img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Space between video & image */
+    margin-top: 20px;
+}
+
+/* Video styling */
+.video-container img {
+    width: 500px; /* Adjust video size */
+    height: auto;
+    border-radius: 10px;
+    border: 3px solid #4a90e2;
+}
+
+/* Gesture Image Styling */
+/*.gesture-container img {*/
+/*    width: 600px; !* Adjust image size *!*/
+/*    height: auto;*/
+/*    border-radius: 10px;*/
+/*    border: 3px solid #4a90e2;*/
+/*}*/
+/* Default style for images */
+.gesture-container img {
+    width: 600px; /* Default size */
+    height: auto;
+    border-radius: 10px;
+    border: 3px solid #4a90e2;
+    cursor: pointer; /* Make it clear that the image is clickable */
+    transition: transform 0.3s ease-in-out; /* Smooth transition */
+}
+
+/* Enlarged image style */
+.gesture-container img.zoomed {
+    transform: scale(1.5); /* Increase size when clicked */
+    z-index: 1000; /* Make sure it appears above other elements */
+}
+
+
+
+.video-container img {
+    max-width: 100%;
+    border: 5px solid #394087;
+    border-radius: 15px;
+}
+
+.current-verse {
+    margin-top: 30px;
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+}
+
+.current-verse.success {
+    color: darkgreen;
+}
+
+.character-sequence {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.character-sequence .character {
+    margin: 5px;
+    padding: 10px 15px;
+    font-size: 28px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.character-sequence .character.correct {
+    background-color: #a8e6a1;
+    border-color: green;
+}
+
+.result p {
+    font-size: 24px;
+    color: #27ae60;
+    margin-top: 20px;
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #27ae60;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 5px;
+    z-index: 1000;
+    opacity: 0.9;
+    animation: fadeInOut 3s ease forwards;
+}
+
+.notification.error {
+    background-color: #e74c3c;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-20px); }
+    10%, 90% { opacity: 0.9; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-20px); }
+}
+
+#loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #394087;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 1.5s linear infinite;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+footer {
+    background-color: #394087;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 20px;
+    }
+    .btn {
+        padding: 10px 20px;
+    }
+    .current-verse {
+        font-size: 24px;
+    }
+    .character-sequence .character {
+        font-size: 20px;
+    }
+    .result p {
+        font-size: 18px;
+    }
+
+    /* General Button Styling */
+    button {
+        width: 100%;  /* Full width button */
+        padding: 12px 20px;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        color: white;
+        background: linear-gradient(to right, #007bff, #0056b3);  /* Blue gradient */
+        border: none;
+        border-radius: 30px; /* Rounded corners */
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Shadow effect */
+        margin-top: 15px;
+    }
+
+    /* Hover Effect */
+    button:hover {
+        background: linear-gradient(to right, #0056b3, #003f7f); /* Darker blue on hover */
+        transform: scale(1.05); /* Slight zoom effect */
+    }
+
+    /* Center buttons */
+    form button {
+        display: block;
+        width: 80%;
+        margin: 0 auto;
+    }
+
+
+
+}

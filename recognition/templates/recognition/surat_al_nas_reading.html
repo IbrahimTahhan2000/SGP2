@@ -1,0 +1,197 @@
+{% extends 'recognition/base.html' %}
+
+{% block title %}سورة الفاتحة{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>سورة الناس</h2>
+{#    <div class="video-container">#}
+{#        <img id="video-feed" src="/video_feed_al_nas/" alt="Video feed" onload="hideLoader()" />#}
+{#        <div id="loader"></div>#}
+{#    </div>#}
+{#    <div class="gesture-container">#}
+{#        {% load static %}#}
+{#        <img id="gesture-image" src="{% static 'images/alnas.jpg' %}" alt="Gesture Image">#}
+        {#                <img src="/recognition/images/defualt.jpg" alt="Gesture Image" class="gesture-display">#}
+        {#                <img id="gesture-image" src="/recognition/images/defualt.jpg" alt="Gesture Image" class="gesture-display" />#}
+{#    </div>#}
+{#    <div class="side-by-side2">#}
+{#    <div class="video-container2">#}
+{#        <img id="video-feed" src="/video_feed_al_nas/" alt="Video feed" onload="hideLoader()" />#}
+{#        <div id="loader"></div>#}
+{#    </div>#}
+{#    <div class="gesture-container2">#}
+{#        {% load static %}#}
+{#        <img id="gesture-image" src="{% static 'images/alnas.jpg' %}" alt="Gesture Image">#}
+{#    </div>#}
+{#</div>#}
+
+    <div class="side-by-side2">
+    <div class="video-container2">
+        <img id="video-feed" src="/video_feed_al_nas/" alt="Video feed" class="video-frame" onload="hideLoader()" />
+        <div id="loader">Loading...</div>
+    </div>
+    <div class="gesture-container2">
+        {% load static %}
+        <img id="gesture-image" src="{% static 'images/alnas.jpg' %}" alt="Gesture Image">
+    </div>
+    </div>
+
+    
+    
+    <div id="current-verse" class="current-verse">
+        <p id="current-phrase"></p>
+        <div id="character-sequence" class="character-sequence"></div>
+    </div>
+
+    <div id="results" class="result"></div>
+
+    <br/>
+    <a href="{% url 'home' %}" class="btn" onclick="return confirmReset()">
+        <i class="fas fa-home"></i> الرجوع إلى الصفحة الرئيسية
+    </a>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<!-- Additional styles can go here if needed -->
+    
+    <style>
+    .side-by-side2 {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+        flex-wrap: wrap; /* Optional: ensures responsiveness on small screens */
+    }
+
+    .video-container2,
+    .gesture-container2 {
+        flex: 1;
+        min-width: 45%;
+        text-align: center;
+        min-height: 300px; /* Ensures both sides take up space even if image/video delays */
+    }
+
+    .video-container2 img,
+    .gesture-container2 img {
+        width: 100%;
+        height: 500px;
+        max-width: 100%;
+    }
+
+    #loader {
+        text-align: center;
+        font-size: 18px;
+        color: gray;
+        margin-top: 10px;
+    }
+</style>
+
+
+    
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    async function checkSequenceStatus() {
+        try {
+            // Fetch completed phrases
+            const response = await fetch('/check_status_al_nas/');
+            const data = await response.json();
+
+            // Update the results section
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+            data.completed_phrases.forEach(phrase => {
+                const phraseElement = document.createElement('p');
+                phraseElement.textContent = phrase;
+                phraseElement.classList.add('visible');
+                resultsDiv.appendChild(phraseElement);
+            });
+
+            // Fetch current sequence status
+            const currentResponse = await fetch('/current_sequence_status_al_nas/');
+            const currentData = await currentResponse.json();
+
+            // Update the current verse display
+            const currentPhraseElem = document.getElementById('current-phrase');
+            const characterSequenceElem = document.getElementById('character-sequence');
+
+            if (currentData.phrase) {
+                currentPhraseElem.textContent = currentData.phrase;
+                characterSequenceElem.innerHTML = ''; // Clear previous characters
+
+                // Display characters with per-character feedback
+                currentData.sequence.forEach((char, index) => {
+                    const charElem = document.createElement('div');
+                    charElem.classList.add('character');
+                    charElem.textContent = char; // Display the character
+
+                    if (index < currentData.current_index) {
+                        charElem.classList.add('correct'); // Highlight correct characters
+                    }
+
+                    characterSequenceElem.appendChild(charElem);
+                });
+
+                if (currentData.completed) {
+                    document.getElementById('current-verse').classList.add('success');
+                    showNotification('تم التعرف على الآية بنجاح!');
+                } else {
+                    document.getElementById('current-verse').classList.remove('success');
+                }
+            } else {
+                currentPhraseElem.textContent = 'تم تسميع السورة بنجاح!';
+                document.getElementById('current-verse').classList.add('success');
+                characterSequenceElem.innerHTML = '';
+            }
+
+        } catch (error) {
+            console.error("Error checking sequence status:", error);
+        }
+    }
+
+    function confirmReset() {
+        if (confirm("هل أنت متأكد من العودة إلى الصفحة الرئيسية؟ سيتم إعادة تعيين التقدم.")) {
+            resetSequences();
+            return true; // Proceed with navigation
+        }
+        return false; // Cancel navigation
+    }
+
+    function resetSequences() {
+        fetch('/reset_sequences_al_nas/')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+            })
+            .catch(error => console.error('Error resetting sequences:', error));
+    }
+
+    function hideLoader() {
+        document.getElementById('loader').style.display = 'none';
+    }
+
+    function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.className = 'notification success';
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+    }
+
+    // Poll the server every second to check for updates
+    setInterval(checkSequenceStatus, 1000);
+    // Function to toggle image zoom
+    document.addEventListener("DOMContentLoaded", function() {
+        const gestureImage = document.getElementById("gesture-image");
+
+        gestureImage.addEventListener("click", function() {
+            this.classList.toggle("zoomed"); // Toggle the zoom effect
+        });
+    });
+</script>
+{% endblock %}
